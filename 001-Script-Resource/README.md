@@ -15,6 +15,6 @@ The extension uses a script resource that does the following:
 3.	Delete zip file
 
 A few remarks:
-1.	If you update the DSC script, you should change the forceUpdateTag properties in the template. Otherwise, DSC will ignore the changes
+1.	If you update the DSC script, you should change the "forceUpdateTag" properties in the template. Otherwise, DSC will ignore the changes
 2.	To use parameters from the Param block in the SetScript block of the Script resource, you have to use Using scope modifier. For example, $using:sourceUrl
 3.	Don’t forget to double back slash in a UNC path when you define it in a JSON template
