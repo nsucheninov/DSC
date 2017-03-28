@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the VM"
+      }
+    },
+    "modulesUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "URL for the DSC configuration module. NOTE: Can be a Github url(raw) to the zip file"
+      }
+    },
+    "configurationFunction": {
+      "type": "string",
+      "metadata": {
+        "description": "DSC configuration function to call"
+      }
+    },
+	"packageUrl": {
+		"type": "string",
+		"metadata": {
+			"description": "URL for the zipped package file"
+		}
+	},
+	"packageDest": {
+		"type": "string",
+		"metadata": {
+			"description": "Destination folder for the package to extract"
+		}
+	}
+  },
+  "variables": {
+    "vmExtensionName": "dscExtension"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmName'),'/', variables('vmExtensionName'))]",
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.19",
+        "autoUpgradeMinorVersion": true,
+		"forceUpdateTag": "0.004",
+        "settings": {
+          "ModulesUrl": "[parameters('modulesUrl')]",
+          "ConfigurationFunction": "[parameters('configurationFunction')]",
+          "Properties": {
+				"sourceUrl": "[parameters('packageUrl')]",
+				"destinationPath":	"[parameters('packageDest')]"
+          }
+        },
+        "protectedSettings": null
+      }
+    }
+  ]
+}
