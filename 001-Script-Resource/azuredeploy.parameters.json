@@ -15,7 +15,7 @@
 		"value": "https://github.com/nsucheninov/DSC/raw/master/001-Script-Resource/TestScript.ps1.zip"
 	},
 	"packageDest": {
-		"value": "C:\\DSCTest3"
+		"value": "C:\\DSCTest"
 	}
   }
 }
